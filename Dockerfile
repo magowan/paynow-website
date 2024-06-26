@@ -32,7 +32,7 @@ COPY --chmod=755 app/app.sh app.sh
 
 # Create app directory
 WORKDIR /app
-RUN chown -R user:user /app
+RUN chown -R user:user /
 RUN mkdir /home/user
 RUN chown -R user:user /home/user
 
