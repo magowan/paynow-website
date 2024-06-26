@@ -16,8 +16,16 @@
 
 FROM node:19
 
+RUN groupadd -r user
+RUN useradd -r -g user user
+
 # Create app directory
 WORKDIR /app
+RUN chown -R user:user /app
+RUN mkdir /home/user
+RUN chown -R user:user /home/user
+
+USER user
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -27,7 +35,7 @@ RUN npm install
 
 # Bundle app source
 COPY app/ .
-RUN chmod 777 app.sh
+COPY --chmod=755 app/app.sh app.sh
 
 EXPOSE 8443
 CMD bash -c './app.sh'
